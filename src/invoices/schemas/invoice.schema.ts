@@ -28,7 +28,7 @@ export const InvoiceLineSchema = SchemaFactory.createForClass(InvoiceLine);
 
 @Schema({ timestamps: true })
 export class Invoice {
-  @Prop({ required: true, unique: true, trim: true })
+  @Prop({ required: true, trim: true })
   numero: string;
 
   @Prop({

@@ -36,7 +36,7 @@ export class Payment {
   })
   statut: PaymentStatus;
 
-  @Prop({ required: true, unique: true, trim: true })
+  @Prop({ required: true, trim: true })
   refCommand: string;
 
   @Prop({ trim: true })
@@ -58,5 +58,4 @@ export class Payment {
 export const PaymentSchema = SchemaFactory.createForClass(Payment);
 
 PaymentSchema.index({ refCommand: 1 }, { unique: true });
-PaymentSchema.index({ userId: 1, createdAt: -1 });
 PaymentSchema.index({ subscriptionId: 1 });
