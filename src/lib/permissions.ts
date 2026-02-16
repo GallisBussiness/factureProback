@@ -7,7 +7,15 @@ import { defaultStatements, adminAc } from 'better-auth/plugins/admin/access';
 const statement = {
   ...defaultStatements,
   employe: ['create', 'read', 'update', 'delete', 'list'],
-  bulletin: ['create', 'read', 'update', 'delete', 'list', 'generate', 'validate'],
+  bulletin: [
+    'create',
+    'read',
+    'update',
+    'delete',
+    'list',
+    'generate',
+    'validate',
+  ],
   lot: ['create', 'read', 'update', 'delete', 'list', 'calculate', 'close'],
   rubrique: ['create', 'read', 'update', 'delete', 'list'],
   session: ['create', 'read', 'update', 'delete', 'list', 'close'],
@@ -38,7 +46,15 @@ export const user = ac.newRole({
 export const admin = ac.newRole({
   ...adminAc.statements,
   employe: ['create', 'read', 'update', 'delete', 'list'],
-  bulletin: ['create', 'read', 'update', 'delete', 'list', 'generate', 'validate'],
+  bulletin: [
+    'create',
+    'read',
+    'update',
+    'delete',
+    'list',
+    'generate',
+    'validate',
+  ],
   lot: ['create', 'read', 'update', 'delete', 'list', 'calculate', 'close'],
   rubrique: ['create', 'read', 'update', 'delete', 'list'],
   session: ['create', 'read', 'update', 'delete', 'list', 'close'],
@@ -66,7 +82,15 @@ export const rh = ac.newRole({
  */
 export const csa = ac.newRole({
   employe: ['read', 'list'],
-  bulletin: ['create', 'read', 'update', 'delete', 'list', 'generate', 'validate'],
+  bulletin: [
+    'create',
+    'read',
+    'update',
+    'delete',
+    'list',
+    'generate',
+    'validate',
+  ],
   lot: ['create', 'read', 'update', 'delete', 'list', 'calculate', 'close'],
   rubrique: ['create', 'read', 'update', 'delete', 'list'],
   session: ['create', 'read', 'update', 'delete', 'list', 'close'],

@@ -41,16 +41,34 @@ async function bootstrap() {
   app.use((req, res, next) => {
     const originalSetHeader = res.setHeader.bind(res);
     res.setHeader = (name: string, value: unknown) => {
-      if (name.toLowerCase() === 'set-cookie' && typeof value === 'string') {
-        // Force SameSite=None and Secure for better-auth cookies
-        let cookie = value;
-        if (cookie.includes('better-auth') && !cookie.includes('SameSite=None')) {
-          cookie = cookie.replace(/SameSite=Lax/i, 'SameSite=None');
-          if (!cookie.includes('Secure')) {
-            cookie += '; Secure';
+      if (name.toLowerCase() === 'set-cookie') {
+        // Handle array of cookies
+        if (Array.isArray(value)) {
+          const modified = value.map((cookie) => {
+            if (
+              typeof cookie === 'string' &&
+              cookie.includes('better-auth') &&
+              !cookie.includes('SameSite=None')
+            ) {
+              let c = cookie.replace(/SameSite=Lax/gi, 'SameSite=None');
+              if (!c.includes('Secure')) c += '; Secure';
+              return c;
+            }
+            return cookie;
+          });
+          return originalSetHeader(name, modified);
+        }
+        // Handle single cookie
+        if (typeof value === 'string') {
+          if (
+            value.includes('better-auth') &&
+            !value.includes('SameSite=None')
+          ) {
+            let cookie = value.replace(/SameSite=Lax/gi, 'SameSite=None');
+            if (!cookie.includes('Secure')) cookie += '; Secure';
+            return originalSetHeader(name, cookie);
           }
         }
-        return originalSetHeader(name, cookie);
       }
       return originalSetHeader(name, value);
     };
