@@ -47,12 +47,12 @@ export const auth: Auth = betterAuth({
   advanced: {
     crossSubDomainCookies: {
       enabled: true,
-      domain: 'factureproback-production.up.railway.app',
+      domain: 'railway.app',
     },
     sessionCookie: {
       sameSite: 'None',
       secure: true,
-      domain: 'factureproback-production.up.railway.app',
+      domain: 'railway.app',
     },
   },
 });
