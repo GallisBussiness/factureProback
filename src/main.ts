@@ -36,6 +36,27 @@ async function bootstrap() {
       disableErrorMessages: process.env.NODE_ENV == 'production',
     }),
   );
+
+  // Fix cookie SameSite for cross-domain auth
+  app.use((req, res, next) => {
+    const originalSetHeader = res.setHeader.bind(res);
+    res.setHeader = (name: string, value: unknown) => {
+      if (name.toLowerCase() === 'set-cookie' && typeof value === 'string') {
+        // Force SameSite=None and Secure for better-auth cookies
+        let cookie = value;
+        if (cookie.includes('better-auth') && !cookie.includes('SameSite=None')) {
+          cookie = cookie.replace(/SameSite=Lax/i, 'SameSite=None');
+          if (!cookie.includes('Secure')) {
+            cookie += '; Secure';
+          }
+        }
+        return originalSetHeader(name, cookie);
+      }
+      return originalSetHeader(name, value);
+    };
+    next();
+  });
+
   const port =
     parseInt(config.get('NEST_PORT') as string, 10) ||
     (process.env.PORT as unknown as number);

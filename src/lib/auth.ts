@@ -44,15 +44,12 @@ export const auth: Auth = betterAuth({
     credentials: true,
   },
   trustedOrigins: allowedOrigins,
-  advanced: {
-    crossSubDomainCookies: {
-      enabled: true,
-      domain: 'railway.app',
-    },
-    sessionCookie: {
-      sameSite: 'None',
-      secure: true,
-      domain: 'railway.app',
-    },
+  crossSubDomainCookies: {
+    enabled: true,
+    domain: '.railway.app',
+  },
+  sessionCookie: {
+    sameSite: 'None',
+    secure: true,
   },
 });
