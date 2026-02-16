@@ -50,6 +50,7 @@ export const auth: Auth = betterAuth({
   },
   sessionCookie: {
     sameSite: 'None',
+    domain: '.railway.app',
     secure: true,
   },
 });
