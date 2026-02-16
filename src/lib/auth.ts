@@ -45,13 +45,13 @@ export const auth: Auth = betterAuth({
   },
   trustedOrigins: allowedOrigins,
   sessionCookie: {
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'none',
+    secure: true,
     domain: undefined,
   },
   advanced: {
-    useSecureCookies: process.env.NODE_ENV === 'production',
-    useHttpOnlyCookies: process.env.NODE_ENV === 'production',
-    useSameSiteCookies: process.env.NODE_ENV === 'production',
+    useSecureCookies: true,
+    useHttpOnlyCookies: true,
+    useSameSiteCookies: true,
   },
 });
