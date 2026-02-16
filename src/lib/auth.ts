@@ -49,7 +49,7 @@ export const auth: Auth = betterAuth({
     domain: '.railway.app',
   },
   sessionCookie: {
-    sameSite: 'none',
+    sameSite: 'None',
     secure: true,
   },
 });
