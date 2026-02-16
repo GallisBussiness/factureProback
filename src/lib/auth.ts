@@ -48,4 +48,14 @@ export const auth: Auth = betterAuth({
     sameSite: 'none',
     secure: true,
   },
+  advanced: {
+    crossSubDomainCookies: {
+      enabled: true,
+    },
+    useSecureCookies: process.env.NODE_ENV === 'production',
+    useHttpOnlyCookies: process.env.NODE_ENV === 'production',
+    useSameSiteCookies: process.env.NODE_ENV === 'production',
+    useCrossOriginCookies: process.env.NODE_ENV === 'production',
+    useCrossOriginRequests: process.env.NODE_ENV === 'production',
+  },
 });
