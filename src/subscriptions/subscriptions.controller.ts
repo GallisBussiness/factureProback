@@ -1,15 +1,5 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Patch,
-  Delete,
-  Body,
-  Param,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { SubscriptionsService } from './services/subscriptions.service';
-import { CreatePlanDto } from './dto/create-plan.dto';
-import { UpdatePlanDto } from './dto/update-plan.dto';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
 import { PaytechIpnPayload } from './services/paytech.service';
 import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
@@ -20,11 +10,12 @@ export class SubscriptionsController {
 
   // ─── Plans ───
 
-  @Post('plans')
-  createPlan(@Body() dto: CreatePlanDto) {
-    return this.subscriptionsService.createPlan(dto);
-  }
+  // @Post('plans')
+  // createPlan(@Body() dto: CreatePlanDto) {
+  //   return this.subscriptionsService.createPlan(dto);
+  // }
 
+  @AllowAnonymous()
   @Get('plans')
   findAllPlans() {
     return this.subscriptionsService.findAllPlans();
@@ -35,15 +26,15 @@ export class SubscriptionsController {
     return this.subscriptionsService.findPlan(id);
   }
 
-  @Patch('plans/:id')
-  updatePlan(@Param('id') id: string, @Body() dto: UpdatePlanDto) {
-    return this.subscriptionsService.updatePlan(id, dto);
-  }
+  // @Patch('plans/:id')
+  // updatePlan(@Param('id') id: string, @Body() dto: UpdatePlanDto) {
+  //   return this.subscriptionsService.updatePlan(id, dto);
+  // }
 
-  @Delete('plans/:id')
-  removePlan(@Param('id') id: string) {
-    return this.subscriptionsService.removePlan(id);
-  }
+  // @Delete('plans/:id')
+  // removePlan(@Param('id') id: string) {
+  //   return this.subscriptionsService.removePlan(id);
+  // }
 
   // ─── Subscriptions ───
 
@@ -69,11 +60,13 @@ export class SubscriptionsController {
 
   // ─── Payments ───
 
+  @AllowAnonymous()
   @Get('payments/user/:userId')
   getUserPayments(@Param('userId') userId: string) {
     return this.subscriptionsService.getUserPayments(userId);
   }
 
+  @AllowAnonymous()
   @Get('payments/ref/:ref')
   getPaymentByRef(@Param('ref') ref: string) {
     return this.subscriptionsService.getPaymentByRef(ref);
