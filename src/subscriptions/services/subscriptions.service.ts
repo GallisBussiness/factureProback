@@ -160,6 +160,7 @@ export class SubscriptionsService {
 
   async handleIpn(payload: PaytechIpnPayload): Promise<void> {
     const isValid = this.paytechService.verifyIpn(payload);
+    console.log(isValid);
     if (!isValid) {
       throw new NotFoundException('Signature IPN invalide');
     }
@@ -167,6 +168,7 @@ export class SubscriptionsService {
     const payment = await this.paymentModel.findOne({
       refCommand: payload.ref_command,
     });
+    console.log(payment);
     if (!payment) {
       throw new NotFoundException(
         `Paiement ref ${payload.ref_command} introuvable`,
