@@ -12,6 +12,7 @@ import { CreatePlanDto } from './dto/create-plan.dto';
 import { UpdatePlanDto } from './dto/update-plan.dto';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
 import { PaytechIpnPayload } from './services/paytech.service';
+import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
 
 @Controller('subscriptions')
 export class SubscriptionsController {
@@ -80,6 +81,7 @@ export class SubscriptionsController {
 
   // ─── PayTech IPN Webhook ───
 
+  @AllowAnonymous()
   @Post('ipn')
   handleIpn(@Body() payload: PaytechIpnPayload) {
     return this.subscriptionsService.handleIpn(payload);
