@@ -66,7 +66,6 @@ export class PaytechService {
     });
 
     const data = await response.json();
-
     if (data.success !== 1) {
       throw new BadRequestException(
         `Erreur PayTech: ${data.message || 'Échec de la demande de paiement'}`,

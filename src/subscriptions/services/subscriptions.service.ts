@@ -17,7 +17,11 @@ import {
   PaymentDocument,
   PaymentStatus,
 } from '../schemas/payment.schema';
-import { PaytechService, PaytechIpnPayload } from './paytech.service';
+import {
+  PaytechService,
+  PaytechIpnPayload,
+  PaytechPaymentResponse,
+} from './paytech.service';
 import { CreateSubscriptionDto } from '../dto/create-subscription.dto';
 import { CreatePlanDto } from '../dto/create-plan.dto';
 import { UpdatePlanDto } from '../dto/update-plan.dto';
@@ -96,9 +100,7 @@ export class SubscriptionsService {
     return end;
   }
 
-  async subscribe(
-    dto: CreateSubscriptionDto,
-  ): Promise<{ subscription: SubscriptionDocument; redirectUrl: string }> {
+  async subscribe(dto: CreateSubscriptionDto): Promise<PaytechPaymentResponse> {
     const plan = await this.planModel.findById(dto.planId);
     if (!plan) {
       throw new NotFoundException(`Plan #${dto.planId} introuvable`);
@@ -153,10 +155,7 @@ export class SubscriptionsService {
     payment.paytechToken = paytechResponse.token;
     await payment.save();
 
-    return {
-      subscription,
-      redirectUrl: paytechResponse.redirect_url,
-    };
+    return paytechResponse;
   }
 
   async handleIpn(payload: PaytechIpnPayload): Promise<void> {
